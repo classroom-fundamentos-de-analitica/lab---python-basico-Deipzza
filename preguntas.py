@@ -11,7 +11,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+import csv
 
 def pregunta_01():
     """
@@ -21,7 +21,14 @@ def pregunta_01():
     214
 
     """
-    return
+    sum = 0
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            sum += int(row[1])
+
+    return sum
 
 
 def pregunta_02():
@@ -39,7 +46,20 @@ def pregunta_02():
     ]
 
     """
-    return
+    letter_dict = {}
+    letter_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            letter_dict[row[0]] = letter_dict.get(row[0], 0) + 1
+    
+    for key, value in letter_dict.items():
+        letter_list.append((key, value))
+
+    letter_list.sort()
+
+    return letter_list
 
 
 def pregunta_03():
@@ -57,7 +77,20 @@ def pregunta_03():
     ]
 
     """
-    return
+    letter_dict = {}
+    letter_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            letter_dict[row[0]] = letter_dict.get(row[0], 0) + int(row[1])
+    
+    for key, value in letter_dict.items():
+        letter_list.append((key, value))
+
+    letter_list.sort()
+
+    return letter_list
 
 
 def pregunta_04():
@@ -82,7 +115,21 @@ def pregunta_04():
     ]
 
     """
-    return
+    month_dict = {}
+    month_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            month = row[2][5:7]
+            month_dict[month] = month_dict.get(month, 0) + 1
+    
+    for key, value in month_dict.items():
+        month_list.append((key, value))
+
+    month_list.sort()
+
+    return month_list
 
 
 def pregunta_05():
@@ -100,8 +147,21 @@ def pregunta_05():
     ]
 
     """
-    return
+    letter_dict = {}
+    letter_list = []
 
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            new_value = (row[1], row[1])
+            letter_dict[row[0]] = (max(letter_dict.get(row[0], new_value)[0], new_value[0]), min(letter_dict.get(row[0], new_value)[1], new_value[1]))
+    
+    for key, value in letter_dict.items():
+        letter_list.append(tuple(key) + value)
+
+    letter_list.sort()
+
+    return letter_list
 
 def pregunta_06():
     """
@@ -125,7 +185,28 @@ def pregunta_06():
     ]
 
     """
-    return
+    strings = []
+    char_dict = {}
+    char_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            strings.append(row[4])
+
+    for string in strings:
+        str_splt = string.split(',')
+        for element in str_splt:
+            key = element.split(':')[0]
+            values = (int(element.split(':')[1]), int(element.split(':')[1]))
+            char_dict[key] = (min(char_dict.get(key, values)[0], values[0]), max(char_dict.get(key, values)[1], values[1]))
+
+    for key, value in char_dict.items():
+        char_list.append((key,) + value)
+
+    char_list.sort()
+
+    return char_list
 
 
 def pregunta_07():
@@ -149,7 +230,21 @@ def pregunta_07():
     ]
 
     """
-    return
+    num_dict = {}
+    num_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            number = int(row[1])
+            num_dict[number] = num_dict.get(number, []) + list(row[0])
+
+    for key, value in num_dict.items():
+        num_list.append((key, value))
+
+    num_list.sort()
+
+    return num_list
 
 
 def pregunta_08():
@@ -174,7 +269,23 @@ def pregunta_08():
     ]
 
     """
-    return
+    num_dict = {}
+    num_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            number = int(row[1])
+            num_dict[number] = num_dict.get(number, []) + list(row[0])
+
+    for key, value in num_dict.items():
+        value = list(dict.fromkeys(value))
+        value.sort()
+        num_list.append((key, value))
+
+    num_list.sort()
+
+    return num_list
 
 
 def pregunta_09():
@@ -197,7 +308,25 @@ def pregunta_09():
     }
 
     """
-    return
+    strings = []
+    char_dict = {}
+    sorted_char_dict ={}
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            strings.append(row[4])
+
+    for string in strings:
+        str_splt = string.split(',')
+        for element in str_splt:
+            key = element.split(':')[0]
+            char_dict[key] = char_dict.get(key, 0) + 1
+
+    for k in sorted(char_dict):
+        sorted_char_dict[k] = char_dict[k]
+
+    return sorted_char_dict
 
 
 def pregunta_10():
@@ -218,7 +347,17 @@ def pregunta_10():
 
 
     """
-    return
+    elements_list = []
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            letter = row[0]
+            fourth_row = len(row[3].split(','))
+            fifth_row = len(row[4].split(','))
+            elements_list.append((letter, fourth_row, fifth_row))
+    
+    return elements_list
 
 
 def pregunta_11():
@@ -239,7 +378,22 @@ def pregunta_11():
 
 
     """
-    return
+    letter_dict = {}
+    sorted_letter_dict = {}
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            # string_list.append((int(row[1]), row[3]))
+            number = int(row[1])
+            letters = row[3].split(',')
+            for letter in letters:
+                letter_dict[letter] = letter_dict.get(letter, 0) + number
+
+    for k in sorted(letter_dict):
+        sorted_letter_dict[k] = letter_dict[k]
+
+    return sorted_letter_dict
 
 
 def pregunta_12():
@@ -257,4 +411,17 @@ def pregunta_12():
     }
 
     """
-    return
+    char_dict = {}
+    sorted_char_dict = {}
+
+    with open('data.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = '\t')
+        for row in csv_reader:
+            char = row[0]
+            numbers = [int(x.split(':')[1]) for x in row[4].split(',')]
+            char_dict[char] = char_dict.get(char, 0) + sum(numbers)
+
+    for k in sorted(char_dict):
+        sorted_char_dict[k] = char_dict[k]
+
+    return sorted_char_dict

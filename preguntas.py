@@ -153,7 +153,7 @@ def pregunta_05():
     with open('data.csv', 'r') as file:
         csv_reader = csv.reader(file, delimiter = '\t')
         for row in csv_reader:
-            new_value = (row[1], row[1])
+            new_value = (int(row[1]), int(row[1]))
             letter_dict[row[0]] = (max(letter_dict.get(row[0], new_value)[0], new_value[0]), min(letter_dict.get(row[0], new_value)[1], new_value[1]))
     
     for key, value in letter_dict.items():
@@ -162,6 +162,8 @@ def pregunta_05():
     letter_list.sort()
 
     return letter_list
+
+print(pregunta_05())
 
 def pregunta_06():
     """

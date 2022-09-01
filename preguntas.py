@@ -11,7 +11,6 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-import csv
 
 def pregunta_01():
     """
@@ -24,8 +23,9 @@ def pregunta_01():
     sum = 0
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             sum += int(row[1])
 
     return sum
@@ -50,8 +50,9 @@ def pregunta_02():
     letter_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             letter_dict[row[0]] = letter_dict.get(row[0], 0) + 1
     
     for key, value in letter_dict.items():
@@ -81,8 +82,9 @@ def pregunta_03():
     letter_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             letter_dict[row[0]] = letter_dict.get(row[0], 0) + int(row[1])
     
     for key, value in letter_dict.items():
@@ -119,8 +121,9 @@ def pregunta_04():
     month_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             month = row[2][5:7]
             month_dict[month] = month_dict.get(month, 0) + 1
     
@@ -151,8 +154,9 @@ def pregunta_05():
     letter_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             new_value = (int(row[1]), int(row[1]))
             letter_dict[row[0]] = (max(letter_dict.get(row[0], new_value)[0], new_value[0]), min(letter_dict.get(row[0], new_value)[1], new_value[1]))
     
@@ -163,7 +167,6 @@ def pregunta_05():
 
     return letter_list
 
-print(pregunta_05())
 
 def pregunta_06():
     """
@@ -192,8 +195,9 @@ def pregunta_06():
     char_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             strings.append(row[4])
 
     for string in strings:
@@ -236,8 +240,9 @@ def pregunta_07():
     num_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             number = int(row[1])
             num_dict[number] = num_dict.get(number, []) + list(row[0])
 
@@ -275,8 +280,9 @@ def pregunta_08():
     num_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             number = int(row[1])
             num_dict[number] = num_dict.get(number, []) + list(row[0])
 
@@ -315,8 +321,9 @@ def pregunta_09():
     sorted_char_dict ={}
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             strings.append(row[4])
 
     for string in strings:
@@ -352,8 +359,9 @@ def pregunta_10():
     elements_list = []
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             letter = row[0]
             fourth_row = len(row[3].split(','))
             fifth_row = len(row[4].split(','))
@@ -384,8 +392,9 @@ def pregunta_11():
     sorted_letter_dict = {}
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             # string_list.append((int(row[1]), row[3]))
             number = int(row[1])
             letters = row[3].split(',')
@@ -417,8 +426,9 @@ def pregunta_12():
     sorted_char_dict = {}
 
     with open('data.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter = '\t')
-        for row in csv_reader:
+        csv_reader = file.readlines()
+        rows = [x.split('\t') for x in csv_reader]
+        for row in rows:
             char = row[0]
             numbers = [int(x.split(':')[1]) for x in row[4].split(',')]
             char_dict[char] = char_dict.get(char, 0) + sum(numbers)
